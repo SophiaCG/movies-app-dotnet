@@ -1,0 +1,46 @@
+﻿body {
+    background-color: #171717;
+    font-family: 'Teko', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white; /* Set the color for heading elements */
+}
+
+p {
+    color: #B5B5B5;
+}
+
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Add the rest of your CSS styles below */
+
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: center;
+    border: 1px solid red;
+}
+
+.movie-item {
+    height: 450px;
+    width: 280px;
+    border: 1px solid purple;
+}
+
+.movie-poster {
+    height: 350px;
+    width: 280px;
+}
+
+.movie-info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}

@@ -1,0 +1,17 @@
+﻿@using movies_app.Models
+
+@model Movie[]
+
+<div class="movie-grid">
+    @foreach (var movie in Model)
+    {
+        <div class="movie-item">
+            <img src="@movie.PosterUrl" alt="@movie.Title" class="movie-poster" />
+            <div class="movie-info">
+                <h4 class="teko-text">@movie.Title</h4>
+                <p>@movie.Runtime MIN&nbsp;&nbsp;|&nbsp;&nbsp;ADVENTURE, ACTION</p>
+
+            </div>
+        </div>
+    }
+</div>
