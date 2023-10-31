@@ -25,13 +25,13 @@ p {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     align-items: center;
-    border: 1px solid red;
+/*    border: 1px solid red;*/
 }
 
 .movie-item {
     height: 450px;
     width: 280px;
-    border: 1px solid purple;
+/*    border: 1px solid purple;*/
 }
 
 .movie-poster {

@@ -1,18 +1,31 @@
 ﻿@model movies_app.Models.Root
+@using movies_app.Models
 
 <div class="movie-grid">
     @if (Model != null && Model.Results != null)
     {
         @foreach (var result in Model.Results)
-            {
+        {
             <div class="movie-item">
                 <img src="@($"https://image.tmdb.org/t/p/w500/{result.PosterPath}")" alt="@result.Title" class="movie-poster" />
                 <div class="movie-info">
                     <h4>@result.Title</h4>
-                    <p>123 MIN&nbsp;&nbsp;|&nbsp;&nbsp;ADVENTURE, ACTION</p>
+                    <p>
+                        @{
+                            var genreList = new List<string>();
+                            foreach (var genreId in result.GenreIds)
+                            {
+                                if (GenreMapper.genreMapping.ContainsKey(genreId))
+                                {
+                                    genreList.Add(GenreMapper.genreMapping[genreId]);
+                                }
+                            }
+                            var genres = string.Join(", ", genreList);
+                        }
+                        @genres
+                    </p>
                 </div>
             </div>
-
         }
     }
     else
