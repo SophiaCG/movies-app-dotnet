@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using movies_app.Models;
-using movies_app.Services; // Replace YourNamespace.Services with your actual namespace
+using movies_app.Services;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -41,6 +41,15 @@ namespace movies_app.Controllers
                 Console.WriteLine($"An unexpected exception occurred: {ex.Message}");
                 return View("Error"); // Return an error view
             }
+        }
+
+        public async Task<IActionResult> Details(string result)
+        {
+            var data = await _apiService.GetMovieByID(result);
+
+            // Deserialize the data into the Root object
+            var movie = JsonConvert.DeserializeObject<Result>(data);
+            return View(movie);
         }
 
         public IActionResult Watchlist()

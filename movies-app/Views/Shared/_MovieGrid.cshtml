@@ -7,20 +7,17 @@
         @foreach (var result in Model.Results)
         {
             <div class="movie-item">
-                <img src="@($"https://image.tmdb.org/t/p/w500/{result.PosterPath}")" alt="@result.Title" class="movie-poster" />
+                <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@result.Id" style="text-decoration: none;">
+                    <img src="@($"https://image.tmdb.org/t/p/w500/{result.PosterPath}")" alt="@result.Title" class="movie-poster" />
+                </a>
                 <div class="movie-info">
-                    <h4>@result.Title</h4>
+                    <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@result.Id" style="text-decoration: none;">
+                        <h4>@result.Title</h4>
+                    </a>
+
                     <p>
                         @{
-                            var genreList = new List<string>();
-                            foreach (var genreId in result.GenreIds)
-                            {
-                                if (GenreMapper.genreMapping.ContainsKey(genreId))
-                                {
-                                    genreList.Add(GenreMapper.genreMapping[genreId]);
-                                }
-                            }
-                            var genres = string.Join(", ", genreList);
+                            var genres = GenreMapper.GetGenres(result.GenreIds);
                         }
                         @genres
                     </p>
