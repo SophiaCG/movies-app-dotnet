@@ -17,7 +17,7 @@ namespace movies_app.Services // Replace YourNamespace.Services with your actual
         public async Task<string> GetPopularMovies()
         {
             var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("secrets.json")
                 .Build();
 
             var apiKey = configuration["ApiKey"];
