@@ -6,23 +6,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-    @{
-        var movies = new[] {
-            new movies_app.Models.Movie { Title = "SUCCESSION", PosterUrl = "https://m.media-amazon.com/images/I/71zEeojFg5L.jpg", Runtime = 120 },
-            new movies_app.Models.Movie { Title = "JOHN WICK 2", PosterUrl = "https://m.media-amazon.com/images/I/91WlTjCgu4L.jpg", Runtime = 110 },
-            new movies_app.Models.Movie { Title = "THE SUPER MARIO BROS", PosterUrl = "https://filmartgallery.com/cdn/shop/products/Star-Wars-The-Force-Awakens-Vintage-Movie-Poster-Original-1-Sheet-27x41-7308.jpg?v=1666911067", Runtime = 90 },
-            new movies_app.Models.Movie { Title = "BEEF", PosterUrl = "https://m.media-amazon.com/images/I/71zEeojFg5L.jpg", Runtime = 120 },
-            new movies_app.Models.Movie { Title = "Movie 2", PosterUrl = "https://m.media-amazon.com/images/I/91WlTjCgu4L.jpg", Runtime = 110 },
-            new movies_app.Models.Movie { Title = "Movie 3", PosterUrl = "https://filmartgallery.com/cdn/shop/products/Star-Wars-The-Force-Awakens-Vintage-Movie-Poster-Original-1-Sheet-27x41-7308.jpg?v=1666911067", Runtime = 90 },
-            new movies_app.Models.Movie { Title = "Movie 1", PosterUrl = "https://m.media-amazon.com/images/I/71zEeojFg5L.jpg", Runtime = 120 },
-            new movies_app.Models.Movie { Title = "Movie 2", PosterUrl = "https://m.media-amazon.com/images/I/91WlTjCgu4L.jpg", Runtime = 110 },
-            new movies_app.Models.Movie { Title = "Movie 3", PosterUrl = "https://filmartgallery.com/cdn/shop/products/Star-Wars-The-Force-Awakens-Vintage-Movie-Poster-Original-1-Sheet-27x41-7308.jpg?v=1666911067", Runtime = 90 },
-            new movies_app.Models.Movie { Title = "Movie 1", PosterUrl = "https://m.media-amazon.com/images/I/71zEeojFg5L.jpg", Runtime = 120 },
-            new movies_app.Models.Movie { Title = "Movie 2", PosterUrl = "https://m.media-amazon.com/images/I/91WlTjCgu4L.jpg", Runtime = 110 },
-            new movies_app.Models.Movie { Title = "Movie 3", PosterUrl = "https://filmartgallery.com/cdn/shop/products/Star-Wars-The-Force-Awakens-Vintage-Movie-Poster-Original-1-Sheet-27x41-7308.jpg?v=1666911067", Runtime = 90 },
-        };
-    }
-
-    @Html.Partial("_MovieGrid", movies)
+    @await Html.PartialAsync("_MovieGrid")
 </body>
 </html>
