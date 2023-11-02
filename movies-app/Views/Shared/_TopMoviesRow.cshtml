@@ -1,0 +1,50 @@
+﻿@model movies_app.Models.Root
+@using movies_app.Models
+
+<div class="top-movies-section">
+    <h1>TOP MOVIES</h1>
+
+    <div class="top-movies-row">
+        @if (Model != null && Model.Results != null)
+        {
+            @for (var i = 1; i < 4 && i < Model.Results.Count; i++)
+            {
+                var result = Model.Results[i];
+                <div class="top-movies-row-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@result.Id" style="text-decoration: none;">
+                        <img src="@($"https://image.tmdb.org/t/p/w500/{result.PosterPath}")" alt="@result.Title" class="top-movies-poster" />
+                    </a>
+                    <div class="movie-info">
+                        <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@result.Id" style="text-decoration: none;">
+                            <h4>@result.Title</h4>
+                        </a>
+                        <p>
+                            @{
+                                int characterLimit = i == 2 ? 250 : 150; // Character limit for the overview
+                                string overview = result.Overview;
+                                if (overview.Length > characterLimit)
+                                {
+                                    int lastSpace = overview.LastIndexOf(' ', characterLimit);
+                                    if (lastSpace != -1)
+                                    {
+                                        overview = overview.Substring(0, lastSpace) + "...";
+                                    }
+                                    else
+                                    {
+                                        overview = overview.Substring(0, characterLimit) + "...";
+                                    }
+                                }
+                            }
+                            @overview
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Failed to retrieve data from the API.</p>
+        }
+    </div>
+
+</div>

@@ -18,29 +18,139 @@ p {
     box-sizing: border-box;
 }
 
-/* Add the rest of your CSS styles below */
+/* Index Page */
+
+.top-movies-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: black;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: 575px;
+}
+
+.top-movies-row {
+    display: flex;
+    gap: 40px;
+}
+
+.top-movies-row-item {
+    height: 200px;
+    width: 300px;
+    /*overflow: clip;*/ /* Hide any overflowing content */
+}
+
+    .top-movies-row-item:nth-child(2) {
+        height: 300px; /* Set the custom height for the second top-movies-row-item */
+        width: 400px; /* Set the custom width for the second top-movies-row-item */
+    }
+
+.top-movies-poster {
+    width: 100%; /* Set the width of the image to 100% */
+    height: 100%; /* Set the height of the image to 100% */
+    object-fit: cover; /* Ensure the image covers the container, cropping as needed */
+}
 
 
 .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     align-items: center;
-/*    border: 1px solid red;*/
+    gap: 20px;
+    /*    border: 1px solid red;*/
 }
 
 .movie-item {
-    height: 450px;
-    width: 280px;
-/*    border: 1px solid purple;*/
+    width: 300px;
 }
 
 .movie-poster {
-    height: 350px;
-    width: 280px;
+    max-width: 100%; /* Ensure the image does not exceed the width of its container */
+    height: auto; /* Maintain the aspect ratio of the image */
+    display: block; /* Set the image to display as a block element */
 }
 
 .movie-info {
     display: flex;
     flex-direction: column;
     margin-top: 15px;
+}
+
+
+/* Details Page */
+
+.top-movie-section {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Set the desired height */
+    background-size: cover;
+    background-position: center;
+}
+
+.top-movie-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.top-movie-info {
+    position: absolute;
+    z-index: 2;
+    width: 550px;
+    left: 10px;
+}
+
+.top-movie-title {
+    font-size: 4rem;
+}
+
+.top-movie-overview {
+    font-size: 1.10rem;
+    color: white;
+}
+
+.watchlist-button {
+    border: 1.5px solid black;
+    border-radius: 15px;
+    background: #F82A37;
+    padding: 17px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 20px;
+}
+
+.watchlist-button:hover {
+    background: black;
+    color: white;
+}
+
+.similar-movies-label {
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
+.similar-movies-row {
+    display: flex;
+    gap: 30px;
+}
+
+.similar-movie-poster {
+    padding-bottom: 10px;
+    height: 230px;
+    width: 160px;
+}
+
+.top-movie-poster {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 500px;
+    height: 650px;
+    z-index: 2;
 }

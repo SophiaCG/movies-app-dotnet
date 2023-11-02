@@ -1,11 +1,70 @@
-﻿@model movies_app.Models.Result;
+﻿@model movies_app.Controllers.MovieViewModel
 
-@{
-    ViewData["Title"] = "Details";
-}
-
-<div>
-    <h4>Title: @Model.Title</h4>
-    <p>Description: @Model.Overview</p>
-    <!-- Add other properties as needed -->
+<div class="top-movie-section">
+    @if (Model != null)
+    {
+        <img src="@($"https://image.tmdb.org/t/p/w500/{Model.Movie.BackdropPath}")" alt="@Model.Movie.Title" class="top-movie-backdrop" />
+        <div class="top-movie-info">
+            <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@Model.Movie.Id" style="text-decoration: none;">
+                <h1 class="top-movie-title">@Model.Movie.Title</h1>
+            </a>
+            @{
+                List<string> genresList = new List<string>();
+                foreach (var genre in Model.Movie.Genres)
+                {
+                    genresList.Add(genre.Name);
+                }
+                string genres = string.Join(", ", genresList);
+            }
+            <p>@Model.Movie.Runtime MIN&nbsp;&nbsp;|&nbsp;&nbsp;@genres</p>
+            <p class="top-movie-overview">@Model.Movie.Overview</p>
+            <p>
+                @for (int i = 0; i < 5; i++)
+                {
+                    if (i < GetAdjustedVoteAverage(Model.Movie.VoteAverage))
+                    {
+                        <i class="fas fa-star" style="color:gold"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-star" style="color:gray"></i>
+                    }
+                }
+            </p>
+            <div class="watchlist-button-container">
+                <button class="watchlist-button">Add to Watchlist</button>
+            </div>
+            <h2 class="similar-movies-label">Similar Movies</h2>
+            <div class="similar-movies-row">
+                @if (Model.SimilarMovies != null && Model.SimilarMovies.Results != null && Model.SimilarMovies.Results.Count > 0)
+                {
+                    @foreach (var similarMovie in Model.SimilarMovies.Results.Take(4).Where(m => m.PosterPath != null))
+                    {
+                        <div class="similar-movie-item">
+                            <img src="@($"https://image.tmdb.org/t/p/w200/{similarMovie.PosterPath}")" alt="@similarMovie.Title" class="similar-movie-poster" />
+                            <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@similarMovie.Id" style="text-decoration: none;">
+                                <h4>@similarMovie.Title</h4>
+                            </a>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No similar movies found.</p>
+                }
+            </div>
+        </div>
+        <img src="@($"https://image.tmdb.org/t/p/w500/{Model.Movie.PosterPath}")" alt="@Model.Movie.Title" class="top-movie-poster" />
+    }
+    else
+    {
+        <p>Failed to retrieve data from the API.</p>
+    }
 </div>
+
+@functions {
+    public int GetAdjustedVoteAverage(double voteAverage)
+    {
+        return (int)Math.Round(voteAverage / 2);
+    }
+}

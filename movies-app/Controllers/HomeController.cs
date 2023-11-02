@@ -46,10 +46,19 @@ namespace movies_app.Controllers
         public async Task<IActionResult> Details(string result)
         {
             var data = await _apiService.GetMovieByID(result);
-
-            // Deserialize the data into the Root object
             var movie = JsonConvert.DeserializeObject<Result>(data);
-            return View(movie);
+
+            var similarData = await _apiService.GetSimilarMovies(result);
+            var similarMovies = JsonConvert.DeserializeObject<Root>(similarData);
+            Console.WriteLine("SIMILAR MOVIES: " + similarMovies.Results[0].Title);
+
+            var viewModel = new MovieViewModel
+            {
+                Movie = movie,
+                SimilarMovies = similarMovies
+            };
+
+            return View(viewModel);
         }
 
         public IActionResult Watchlist()

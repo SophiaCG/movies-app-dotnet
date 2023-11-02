@@ -4,7 +4,7 @@
 <div class="movie-grid">
     @if (Model != null && Model.Results != null)
     {
-        @foreach (var result in Model.Results)
+        @foreach (var result in Model.Results.Skip(4))
         {
             <div class="movie-item">
                 <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@result.Id" style="text-decoration: none;">
