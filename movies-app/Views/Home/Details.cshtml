@@ -32,7 +32,7 @@
                 }
             </p>
             <div class="watchlist-button-container">
-                <button class="watchlist-button">Add to Watchlist</button>
+                <button onclick="saveToLocalStorage('@Model.Movie.Id', '@Model.Movie.Title', '@Model.Movie.PosterPath')" id="watchlistButton">Add to Watchlist</button>
             </div>
             <h2 class="similar-movies-label">Similar Movies</h2>
             <div class="similar-movies-row">
@@ -41,8 +41,8 @@
                     @foreach (var similarMovie in Model.SimilarMovies.Results.Take(4).Where(m => m.PosterPath != null))
                     {
                         <div class="similar-movie-item">
-                            <img src="@($"https://image.tmdb.org/t/p/w200/{similarMovie.PosterPath}")" alt="@similarMovie.Title" class="similar-movie-poster" />
                             <a asp-area="" asp-controller="Home" asp-action="Details" asp-route-result="@similarMovie.Id" style="text-decoration: none;">
+                                <img src="@($"https://image.tmdb.org/t/p/w200/{similarMovie.PosterPath}")" alt="@similarMovie.Title" class="similar-movie-poster" />
                                 <h4>@similarMovie.Title</h4>
                             </a>
                         </div>
@@ -61,6 +61,62 @@
         <p>Failed to retrieve data from the API.</p>
     }
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var existingData = localStorage.getItem("movieData");
+        var button = document.getElementById("watchlistButton");
+
+        if (existingData) {
+            var existingMovies = JSON.parse(existingData);
+            var index = existingMovies.findIndex(function (m) {
+                return m.id === '@Model.Movie.Id';
+            });
+
+            if (index > -1) {
+                button.textContent = "Remove from Watchlist";
+                button.style.backgroundColor = "black";
+            }
+        }
+    });
+
+    function saveToLocalStorage(movieId, movieTitle, posterUrl) {
+        var movie = {
+            id: movieId,
+            title: movieTitle,
+            posterUrl: posterUrl
+        };
+
+        var existingData = localStorage.getItem("movieData");
+        var button = document.getElementById("watchlistButton");
+
+        if (existingData) {
+            var existingMovies = JSON.parse(existingData);
+            var index = existingMovies.findIndex(function (m) {
+                return m.id === movieId;
+            });
+
+            if (index > -1) {
+                existingMovies.splice(index, 1);
+                var updatedData = JSON.stringify(existingMovies);
+                localStorage.setItem("movieData", updatedData);
+                button.textContent = "Add to Watchlist";
+                button.style.backgroundColor = "#F82A37";
+            } else {
+                existingMovies.push(movie);
+                var updatedData = JSON.stringify(existingMovies);
+                localStorage.setItem("movieData", updatedData);
+                button.textContent = "Remove from Watchlist";
+                button.style.backgroundColor = "black";
+            }
+        } else {
+            var newMovies = [movie];
+            var newData = JSON.stringify(newMovies);
+            localStorage.setItem("movieData", newData);
+        }
+    }
+</script>
+
 
 @functions {
     public int GetAdjustedVoteAverage(double voteAverage)

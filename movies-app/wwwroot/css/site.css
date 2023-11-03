@@ -18,8 +18,17 @@ p {
     box-sizing: border-box;
 }
 
-/* Index Page */
+.navbar-brand {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
 
+.nav-link {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Index Page */
 .top-movies-section {
     display: flex;
     flex-direction: column;
@@ -115,7 +124,7 @@ p {
     color: white;
 }
 
-.watchlist-button {
+#watchlistButton {
     border: 1.5px solid black;
     border-radius: 15px;
     background: #F82A37;
@@ -125,10 +134,10 @@ p {
     margin-top: 20px;
 }
 
-.watchlist-button:hover {
-    background: black;
-    color: white;
-}
+    #watchlistButton:hover {
+        background: black;
+        color: white;
+    }
 
 .similar-movies-label {
     margin-top: 50px;
@@ -153,4 +162,16 @@ p {
     width: 500px;
     height: 650px;
     z-index: 2;
+}
+
+/* Watchlist */
+
+.watchlist-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.watchlist-poster {
+    height: 300px;
+    width: 230px;
 }

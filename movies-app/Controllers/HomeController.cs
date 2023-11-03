@@ -50,7 +50,6 @@ namespace movies_app.Controllers
 
             var similarData = await _apiService.GetSimilarMovies(result);
             var similarMovies = JsonConvert.DeserializeObject<Root>(similarData);
-            Console.WriteLine("SIMILAR MOVIES: " + similarMovies.Results[0].Title);
 
             var viewModel = new MovieViewModel
             {
@@ -58,7 +57,7 @@ namespace movies_app.Controllers
                 SimilarMovies = similarMovies
             };
 
-            return View(viewModel);
+            return View("Details", viewModel); // Return the Details view with the movie data
         }
 
         public IActionResult Watchlist()

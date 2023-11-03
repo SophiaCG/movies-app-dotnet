@@ -3,5 +3,45 @@
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>I'm going to save movies here.</p>
+<!-- Your HTML code -->
+<div class="watchlist">
+    <div class="watchlist-items"></div>
+</div>
 
+<script>
+    function displayMoviesFromLocalStorage() {
+        var watchlistItems = document.querySelector(".watchlist-items");
+        var retrievedData = localStorage.getItem("movieData");
+
+        if (retrievedData) {
+            var movies = JSON.parse(retrievedData);
+            movies.forEach(function (movie) {
+                var itemContainer = document.createElement("div");
+                itemContainer.className = "watchlist-item";
+
+                var link = document.createElement("a");
+                link.href = '@Url.Action("Details", "Home")' + '?result=' + movie.id;
+                link.style.textDecoration = "none";
+                itemContainer.appendChild(link);
+
+                var img = document.createElement("img");
+                img.src = "https://image.tmdb.org/t/p/w500/" + movie.posterUrl;
+                img.alt = movie.title;
+                img.className = "watchlist-poster";
+                link.appendChild(img);
+
+                var title = document.createElement("h3");
+                title.textContent = movie.title;
+                title.className = "watchlist-title";
+                link.appendChild(title);
+
+                watchlistItems.appendChild(itemContainer);
+            });
+        } else {
+            watchlistItems.textContent = "No movies found in local storage.";
+        }
+    }
+
+    // Call the function to display the list of movies from local storage
+    displayMoviesFromLocalStorage();
+</script>

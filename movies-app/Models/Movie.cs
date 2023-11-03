@@ -22,7 +22,7 @@ namespace movies_app.Models
         [JsonProperty("poster_path")]
         public string? PosterPath { get; set; }
         [JsonProperty("release_date")]
-        public DateTime ReleaseDate { get; set; }
+        public string? ReleaseDate { get; set; }
         public string? Title { get; set; }
         public bool Video { get; set; }
         [JsonProperty("vote_average")]
